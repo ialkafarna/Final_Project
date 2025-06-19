@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class CommentController extends Controller
+{
+
+public function store(Request $request, Post $post)
+{
+    $request->validate([
+        'body' => 'required|string|max:1000',
+    ]);
+
+    $post->comments()->create([
+        'user_id' => auth()->id(),
+        'body' => $request->body,
+    ]);
+
+    return redirect()->route('posts.show', $post)->with('success', 'تم إضافة التعليق.');
+}
+public function destroy(Post $post, Comment $comment)
+{
+    if ($comment->user_id !== auth()->id()) {
+        return redirect()->route('posts.show', $post)->with('error', 'لا يمكنك حذف هذا التعليق.');
+    }
+
+    $comment->delete();
+
+    return redirect()->route('posts.show', $post)->with('success', 'تم حذف التعليق بنجاح.');
+}}

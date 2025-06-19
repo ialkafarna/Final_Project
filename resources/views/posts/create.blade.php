@@ -24,10 +24,11 @@
             <input type="text" name="title" id="title" value="{{ old('title') }}" style="width: 100%;">
         </div>
 
-        <div style="margin-bottom: 10px;">
-            <label for="content">المحتوى:</label><br>
-            <textarea name="content" id="content" rows="6" style="width: 100%;">{{ old('content') }}</textarea>
-        </div>
+      <div style="margin-bottom: 10px;">
+    <label for="content">المحتوى:</label><br>
+    <textarea name="content" id="content" rows="6" style="width: 100%;">{{ old('content') }}</textarea>
+</div>
+
 
         <div style="margin-bottom: 10px;">
             <label for="category_id">الفئة:</label><br>

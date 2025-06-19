@@ -59,11 +59,11 @@ class PostController extends Controller
 
         $request->validate([
             'title'       => 'required|string|max:255',
-            'body'        => 'required',
+            'content'        => 'required',
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $post->update($request->only('title', 'body', 'category_id'));
+        $post->update($request->only('title', 'content', 'category_id'));
 
         return redirect()->route('posts.index')->with('success', 'تم التحديث!');
     }
