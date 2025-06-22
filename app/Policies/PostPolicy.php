@@ -1,101 +1,33 @@
 <?php
-
 namespace App\Policies;
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
 {
-    use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Post $post)
+    public function view(User $user, Post $post): bool
     {
-        //
+        return true;
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
+    public function create(User $user): bool
     {
-        //
+        return in_array($user->role, ['admin', 'author']);
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-   public function update(User $user, Post $post)
-{
-    // المشرف يقدر يعدل أي تدوينة، الكاتب يقدر يعدل تدويناته فقط
-    return $user->role === 'admin' || ($user->role === 'author' && $post->user_id === $user->id);
-}
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
- public function delete(User $user, Post $post)
-{
-    // نفس منطق التحديث
-    return $user->role === 'admin' || ($user->role === 'author' && $post->user_id === $user->id);
-}
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Post $post)
+    public function update(User $user, Post $post): bool
     {
-        //
+        return $user->id === $post->user_id || $user->role === 'admin';
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Post $post)
+    public function delete(User $user, Post $post): bool
     {
-        //
+        return $user->id === $post->user_id || $user->role === 'admin';
     }
-
-    protected $policies = [
-    \App\Models\Post::class => \App\Policies\PostPolicy::class,
-];
-
 }

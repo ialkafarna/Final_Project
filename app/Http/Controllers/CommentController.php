@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -10,12 +12,12 @@ class CommentController extends Controller
 public function store(Request $request, Post $post)
 {
     $request->validate([
-        'body' => 'required|string|max:1000',
+        'content' => 'required|string|max:1000',
     ]);
 
     $post->comments()->create([
         'user_id' => auth()->id(),
-        'body' => $request->body,
+        'content' => $request->body,
     ]);
 
     return redirect()->route('posts.show', $post)->with('success', 'تم إضافة التعليق.');

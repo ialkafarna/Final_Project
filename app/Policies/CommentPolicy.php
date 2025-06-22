@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Comment;
 use App\Models\User;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CommentPolicy
@@ -39,9 +40,9 @@ class CommentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user )
     {
-        //
+
     }
 
     /**
