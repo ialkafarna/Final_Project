@@ -17,7 +17,7 @@ public function store(Request $request, Post $post)
 
     $post->comments()->create([
         'user_id' => auth()->id(),
-        'content' => $request->body,
+        'content' => $request->content,
     ]);
 
     return redirect()->route('posts.show', $post)->with('success', 'تم إضافة التعليق.');

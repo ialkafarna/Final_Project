@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\HomeController;
+
 use App\Models\User;
 
 // الصفحة الرئيسية
@@ -42,4 +45,13 @@ Route::middleware('auth')->group(function () {
 // مسار اختباري
 Route::get('/test-users', function () {
     return User::all();
+});
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+
+
+Route::middleware(['auth', 'can:manage-users'])->group(function () {
+    Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::patch('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
 });

@@ -33,7 +33,7 @@
     @forelse ($post->comments as $comment)
         <div class="border p-3 mb-3 rounded">
             <strong>{{ $comment->user->name ?? 'مستخدم' }}</strong>
-            <p>{{ $comment->body }}</p>
+            <p>{{ $comment->content }}</p>
 
        {{-- زر حذف التعليق (لصاحب التعليق فقط) --}}
 @if (auth()->check() && auth()->id() === $comment->user_id)
@@ -56,7 +56,7 @@
         <form action="{{ route('comments.store', $post) }}" method="POST">
             @csrf
             <div class="mb-3">
-                <textarea name="body" rows="4" class="form-control" placeholder="اكتب تعليقك هنا..." required></textarea>
+                <textarea name="content" rows="4" class="form-control" placeholder="اكتب تعليقك هنا..." required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">نشر التعليق</button>
         </form>
