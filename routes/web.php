@@ -6,6 +6,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+
+
 
 use App\Models\User;
 
@@ -55,3 +59,11 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
     Route::patch('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
 });
+
+Route::resource('categories', App\Http\Controllers\CategoryController::class)
+    ->middleware('can:manage-categories');
+
+    Route::resource('categories', CategoryController::class)
+    ->middleware('auth');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');

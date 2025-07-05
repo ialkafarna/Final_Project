@@ -40,6 +40,18 @@
                 </select>
             </div>
 
+            <div class="mb-3">
+                <label for="tags">التاجات:</label>
+                <select name="tags[]" id="tags" class="form-control" multiple>
+                    @foreach($tags as $tag)
+                        <option value="{{ $tag->id }}" {{ (collect(old('tags'))->contains($tag->id)) ? 'selected' : '' }}>
+                            {{ $tag->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <small class="form-text text-muted">يمكنك اختيار أكثر من تاج بالضغط مع Ctrl أو Cmd</small>
+            </div>
+
             <button type="submit" class="btn btn-success">نشر</button>
             <a href="{{ route('posts.index') }}" class="btn btn-secondary">رجوع</a>
         </form>

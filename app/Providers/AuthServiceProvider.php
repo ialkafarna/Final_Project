@@ -6,6 +6,9 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\Post;
 use App\Policies\PostPolicy;
+use App\Models\Category;
+use App\Policies\CategoryPolicy;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,6 +16,8 @@ class AuthServiceProvider extends ServiceProvider
     \App\Models\Post::class => \App\Policies\PostPolicy::class,
         \App\Models\Comment::class => \App\Policies\CommentPolicy::class,
             \App\Models\Post::class => \App\Policies\PostPolicy::class,
+                \App\Models\Category::class => \App\Policies\CategoryPolicy::class,
+
 
 
 ];
