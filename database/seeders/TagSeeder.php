@@ -9,7 +9,7 @@ class TagSeeder extends Seeder
 {
     public function run()
     {
-        $tags = ['Laravel', 'PHP', 'JavaScript', 'VueJS', 'CSS'];
+        $tags = ['Laravel', 'PHP', 'JavaScript', 'VueJS', 'CSS','Android', 'iOS', 'React', 'NodeJS', 'Python', 'Ruby', 'Java', 'C#', 'C++', 'Go', 'Swift'];
 
         foreach ($tags as $tag) {
             Tag::create(['name' => $tag]);

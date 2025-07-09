@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
-    {
-        $categories = Category::all();
-        return view('categories.index', compact('categories'));
-    }
+public function index()
+{
+    $categories = Category::orderBy('id', 'desc')->paginate(10); // 10 تصنيفات في الصفحة
+    return view('categories.index', compact('categories'));
+}
+
 
     public function create()
     {
@@ -44,7 +45,7 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'تم الحذف بنجاح');
     }
-    public function construct()
+    public function _construct()
 {
     $this->middleware(function ($request, $next) {
         if (!auth()->check() || auth()->user()->role !== 'admin') {

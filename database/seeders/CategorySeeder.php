@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
 {
-    \App\Models\Category::create(['name' => 'تقنية']);
-    \App\Models\Category::create(['name' => 'رياضة']);
+    \App\Models\Category::create(['name' => 'تكنولوجيا']);
+    \App\Models\Category::create(['name' => 'ui/ux']);
 }
 }

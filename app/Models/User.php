@@ -70,4 +70,8 @@ class User extends Authenticatable
     {
         return $this->role === 'reader';
     }
+       public function joinedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id')->withTimestamps();
+    }
 }

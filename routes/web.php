@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/posts/{post}/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy.direct');
+    Route::post('/posts/{post}/join', [PostController::class, 'join'])->name('posts.join')->middleware('auth');
+
 });
 
 // مسار اختباري

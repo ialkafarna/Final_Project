@@ -13,6 +13,12 @@ class PostController extends Controller
     public function index() {
         $posts = Post::with(['category', 'tags', 'user'])->latest()->paginate(10);
         return view('posts.index', compact('posts'));
+         // تحميل joinedPosts للمستخدم المسجل فقط لتجنب null
+    if (auth()->check()) {
+        auth()->user()->load('joinedPosts');
+    }
+
+    return view('posts.index', compact('posts'));
     }
 
     public function create() {
@@ -86,5 +92,11 @@ public function show(Post $post) {
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'تم الحذف!');
+    }
+       public function join(Post $post)
+    {
+        auth()->user()->joinedPosts()->syncWithoutDetaching([$post->id]);
+
+        return redirect()->back()->with('success', 'تم الانضمام إلى المقالة!');
     }
 }
